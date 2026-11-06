@@ -1,0 +1,62 @@
+rules_version = '2';
+
+// Reglas de seguridad de la base de datos (Cloud Firestore).
+// - Cualquiera puede ver a los barberos y su estado, las horas tomadas y las opiniones.
+// - Cualquiera puede crear una reserva u opinión válida.
+// - Solo cada barbero puede ver sus propias reservas y cambiar su propio estado.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function esBarbero(uid) {
+      return request.auth != null && request.auth.uid == uid;
+    }
+
+    match /barberos/{uid} {
+      allow read: if true;
+      allow update: if esBarbero(uid)
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['estado'])
+        && request.resource.data.estado in ['disponible', 'ocupado', 'ausente'];
+    }
+
+    // Una hora tomada por barbero. El id es barberoId_fecha_hora, así dos personas
+    // no pueden reservar la misma hora con el mismo barbero.
+    match /ocupados/{id} {
+      allow read: if true;
+      allow create: if request.resource.data.keys().hasOnly(['barberoId', 'fecha', 'hora'])
+        && id == request.resource.data.barberoId + '_' + request.resource.data.fecha + '_' + request.resource.data.hora
+        && exists(/databases/$(database)/documents/barberos/$(request.resource.data.barberoId));
+      allow delete: if esBarbero(resource.data.barberoId);
+    }
+
+    match /reservas/{id} {
+      allow read: if esBarbero(resource.data.barberoId);
+      allow create: if request.resource.data.keys().hasOnly([
+            'nombre', 'telefono', 'servicioId', 'servicio', 'precio', 'barberoId', 'barbero',
+            'fecha', 'hora', 'pago', 'pagado', 'estado', 'creada'])
+        && request.resource.data.nombre is string
+        && request.resource.data.nombre.size() > 0 && request.resource.data.nombre.size() <= 80
+        && request.resource.data.telefono is string && request.resource.data.telefono.size() <= 20
+        && request.resource.data.servicio is string && request.resource.data.servicio.size() <= 60
+        && request.resource.data.precio is number
+        && request.resource.data.pago in ['online', 'debito', 'efectivo']
+        && request.resource.data.pagado == false
+        && request.resource.data.estado == 'pendiente'
+        && request.resource.data.creada == request.time
+        && existsAfter(/databases/$(database)/documents/ocupados/$(request.resource.data.barberoId + '_' + request.resource.data.fecha + '_' + request.resource.data.hora));
+      allow update: if esBarbero(resource.data.barberoId)
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['estado', 'pagado'])
+        && request.resource.data.estado in ['pendiente', 'atendido'];
+    }
+
+    match /opiniones/{id} {
+      allow read: if true;
+      allow create: if request.resource.data.keys().hasOnly(['nombre', 'estrellas', 'comentario', 'creada'])
+        && request.resource.data.nombre is string
+        && request.resource.data.nombre.size() > 0 && request.resource.data.nombre.size() <= 60
+        && request.resource.data.estrellas is int
+        && request.resource.data.estrellas >= 1 && request.resource.data.estrellas <= 5
+        && request.resource.data.comentario is string && request.resource.data.comentario.size() <= 500
+        && request.resource.data.creada == request.time;
+    }
+  }
+}

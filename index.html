@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ilegales Barbershop · Barbería profesional</title>
+  <meta name="description" content="Ilegales Barbershop: cortes, degradados, barba y cejas. Reserva tu hora online con tu barbero.">
+  <link rel="icon" href="barberos/icons/icon-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="contenedor topbar-in">
+      <a href="#inicio" class="logo">
+        <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><polygon points="17,2 30,9.5 30,24.5 17,32 4,24.5 4,9.5" fill="none" stroke="currentColor" stroke-width="2.5"/></svg>
+        <span>Ilegales <b>Barbershop</b></span>
+      </a>
+      <nav aria-label="Principal" class="menu">
+        <a href="#servicios">Servicios</a>
+        <a href="#barberos">Barberos</a>
+        <a href="#opiniones">Opiniones</a>
+        <a href="#horario">Horario</a>
+        <a href="#reservar" class="btn btn-primario">Reservar hora</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="inicio" class="hero">
+      <img src="img/local.jpg" alt="Interior de Ilegales Barbershop con sillas de barbero e iluminación LED" class="hero-img">
+      <div class="hero-velo" aria-hidden="true"></div>
+      <div class="contenedor hero-in">
+        <p class="eyebrow">Barbería profesional</p>
+        <h1>Ilegales Barbershop</h1>
+        <p class="hero-texto">Cortes, degradados y barba hechos con precisión, en un espacio pensado para que salgas renovado.</p>
+        <div class="fila-botones">
+          <a href="#reservar" class="btn btn-primario btn-grande">Reservar hora</a>
+          <a href="#servicios" class="btn btn-borde btn-grande">Ver servicios</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="servicios" class="seccion">
+      <div class="contenedor pila-48">
+        <div class="titulo-seccion">
+          <p class="eyebrow">Servicios</p>
+          <h2>Lo que hacemos</h2>
+        </div>
+        <div id="servicio-destacado"></div>
+        <div class="pila-20">
+          <h3 class="subtitulo">Otras opciones</h3>
+          <div id="lista-servicios" class="grilla grilla-260"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="barberos" class="seccion seccion-alt">
+      <div class="contenedor pila-48">
+        <div class="titulo-fila">
+          <div class="titulo-seccion">
+            <p class="eyebrow">Nuestro equipo</p>
+            <h2>Elige tu barbero</h2>
+          </div>
+          <p class="texto-suave ancho-420">Revisa quién está disponible ahora. Cada barbero actualiza su estado en tiempo real desde su celular.</p>
+        </div>
+        <div id="lista-barberos" class="grilla grilla-240">
+          <p class="texto-suave">Cargando barberos…</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="seccion">
+      <div class="contenedor grilla grilla-240">
+        <div class="valor"><h3>Precisión</h3><p>Cada corte se trabaja con detalle, desde el degradado hasta el perfilado final.</p></div>
+        <div class="valor"><h3>Higiene</h3><p>Herramientas limpias y desinfectadas para cada cliente.</p></div>
+        <div class="valor"><h3>Buen ambiente</h3><p>Un local cómodo, con buena música y buena conversación.</p></div>
+      </div>
+    </section>
+
+    <section id="opiniones" class="seccion">
+      <div class="contenedor pila-48">
+        <div class="titulo-seccion">
+          <p class="eyebrow">Opiniones</p>
+          <h2>Califica la barbería</h2>
+        </div>
+        <div class="grilla grilla-320">
+          <div class="tarjeta pila-16">
+            <div class="promedio"><span id="promedio-num">–</span><span class="texto-suave">de 5</span></div>
+            <div id="promedio-estrellas" class="estrellas-fijas" aria-hidden="true"></div>
+            <p id="promedio-texto" class="texto-suave">Todavía no hay opiniones. ¡Sé el primero!</p>
+            <div id="lista-opiniones" class="pila-12"></div>
+          </div>
+          <form id="form-opinion" class="tarjeta tarjeta-oscura pila-20" novalidate>
+            <h3 class="subtitulo">¿Cómo te fue?</h3>
+            <div class="estrellas" role="radiogroup" aria-label="Calificación" id="estrellas-input"></div>
+            <div class="campo">
+              <label for="op-nombre">Tu nombre</label>
+              <input id="op-nombre" type="text" maxlength="60" autocomplete="name" placeholder="Ej: Juan Pérez" required>
+            </div>
+            <div class="campo">
+              <label for="op-texto">Tu comentario <span class="opcional">(opcional)</span></label>
+              <textarea id="op-texto" rows="4" maxlength="500" placeholder="Cuéntanos cómo fue tu corte"></textarea>
+            </div>
+            <p id="op-error" class="error" role="alert" hidden></p>
+            <button type="submit" class="btn btn-primario btn-grande alinear-inicio">Enviar calificación</button>
+          </form>
+          <div id="op-gracias" class="tarjeta tarjeta-oscura pila-12" hidden>
+            <h3 class="subtitulo">¡Gracias por tu opinión!</h3>
+            <p class="texto-suave" id="op-gracias-texto"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="horario" class="seccion seccion-alt">
+      <div class="contenedor grilla grilla-320 gap-56">
+        <div class="pila-20">
+          <p class="eyebrow">Horario</p>
+          <h2>Cuándo atendemos</h2>
+          <div id="tabla-horario"></div>
+        </div>
+        <div class="pila-20">
+          <p class="eyebrow">Ubicación</p>
+          <h2>Dónde estamos</h2>
+          <p class="texto-grande" id="direccion"></p>
+          <p class="texto-suave" id="comuna"></p>
+          <div id="mapa" class="mapa"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="reservar" class="seccion">
+      <div class="contenedor angosto pila-40">
+        <div class="titulo-seccion centrado">
+          <p class="eyebrow">Reservas online</p>
+          <h2 class="h2-grande">Agenda tu hora</h2>
+          <p class="texto-suave texto-grande ancho-560">Deja tu nombre, elige qué te quieres hacer, la hora, tu barbero y cómo pagas. La reserva le llega al instante.</p>
+        </div>
+
+        <form id="form-reserva" class="tarjeta tarjeta-oscura pila-36" novalidate>
+          <fieldset class="paso">
+            <legend><span class="num">1</span>¿Cómo te llamas?</legend>
+            <div class="grilla grilla-260 gap-16">
+              <div class="campo">
+                <label for="res-nombre">Nombre</label>
+                <input id="res-nombre" type="text" maxlength="80" autocomplete="name" placeholder="Ej: Juan Pérez" required>
+              </div>
+              <div class="campo">
+                <label for="res-fono">Teléfono <span class="opcional">(opcional)</span></label>
+                <input id="res-fono" type="tel" maxlength="20" autocomplete="tel" placeholder="+56 9 ...">
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="paso">
+            <legend><span class="num">2</span>¿Qué te quieres hacer?</legend>
+            <div id="op-servicios" class="grilla grilla-220 gap-12"></div>
+          </fieldset>
+
+          <fieldset class="paso">
+            <legend><span class="num">3</span>¿Cuándo vienes?</legend>
+            <div id="op-dias" class="fila-chips"></div>
+            <p class="texto-chico">Las horas tachadas ya están tomadas. Elige primero tu barbero para ver su disponibilidad exacta.</p>
+            <div id="op-horas" class="grilla grilla-96 gap-12"></div>
+          </fieldset>
+
+          <fieldset class="paso">
+            <legend><span class="num">4</span>Elige tu barbero</legend>
+            <p class="texto-chico">Tu barbero recibe una notificación con tu nombre, el servicio y la hora.</p>
+            <div id="op-barberos" class="grilla grilla-200 gap-12"></div>
+          </fieldset>
+
+          <fieldset class="paso">
+            <legend><span class="num">5</span>¿Cómo vas a pagar?</legend>
+            <div id="op-pagos" class="grilla grilla-240 gap-12"></div>
+            <p id="nota-pago" class="nota-pago" hidden></p>
+          </fieldset>
+
+          <div class="pie-reserva">
+            <p id="resumen" class="resumen">Completa los pasos para reservar.</p>
+            <button type="submit" id="btn-reservar" class="btn btn-primario btn-grande">Confirmar reserva</button>
+          </div>
+          <p id="res-error" class="error" role="alert" hidden></p>
+        </form>
+
+        <div id="res-ok" class="tarjeta confirmacion pila-16" hidden>
+          <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="16 9 10.5 15 8 12.5"/></svg>
+          <h3>¡Reserva confirmada!</h3>
+          <p id="res-ok-texto" class="texto-grande"></p>
+          <p class="texto-suave">Si no puedes llegar, avísanos con tiempo para liberar la hora.</p>
+          <button type="button" id="btn-otra" class="btn btn-borde">Hacer otra reserva</button>
+        </div>
+
+        <p class="centrado texto-suave">También nos encuentras en Instagram: <a id="link-ig" href="https://www.instagram.com/ilegales_barbershop1/">@ilegales_barbershop1</a></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="pie">
+    <div class="contenedor pie-in">
+      <span class="logo-texto">Ilegales <b>Barbershop</b></span>
+      <span>© <span id="anio"></span> Ilegales Barbershop. Todos los derechos reservados.</span>
+    </div>
+  </footer>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
